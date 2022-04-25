@@ -6,5 +6,6 @@ class Persona(Base):
 
     id=Column(Integer, primary_key=True)
     nombre=Column(String)
+    edad=Column(Integer)
 
 

@@ -21,5 +21,20 @@ async def create(request:RequestPersona,db:Session=Depends(get_db)):
 @router.get("/")
 async def get(db: Session = Depends(get_db)):
     _p = crud.get_personas(db,0,100)
-    return Response(code=200,status="Ok",message="Se leyeron todos los datos con exito").dict(exclude_none=True)
+    return Response(code=200,status="Ok",message="Se leyeron todos los datos con exito",result=_p).dict(exclude_none=True)
 
+@router.patch("/update")
+async def actualizar_persona(request: RequestPersona, db: Session = Depends(get_db)):
+    _p = crud.actualizar_persona(db, p_id=request.parameter.id,
+                                    nombre=request.parameter.nombre, edad=request.parameter.edad)
+    return Response(status="Ok", code="200", message="Success update data", result= _p)
+
+@router.delete("/delete")
+async def eliminar_persona(request: RequestPersona,  db: Session = Depends(get_db)):
+    crud.eliminar_persona(db, p_id=request.parameter.id)
+    return Response(status="Ok", code="200", message="Success delete data").dict(exclude_none=True)
+
+@router.delete("/delete2/{id}")
+async def eliminar_persona2(id:int,  db: Session = Depends(get_db)):
+    crud.eliminar_persona(db, p_id=id)
+    return Response(status="Ok", code="200", message="Success delete data").dict(exclude_none=True)

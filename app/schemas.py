@@ -7,6 +7,7 @@ T = TypeVar('T')
 class PersonaSchema(BaseModel):
     id: Optional[int]=None
     nombre: Optional[str]=None
+    edad: Optional[int]=None
 
     class Config: 
         orm_mode = True 
