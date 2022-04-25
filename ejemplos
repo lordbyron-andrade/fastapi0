@@ -1,0 +1,39 @@
+from fastapi import FastAPI,status,Response
+from enum import Enum
+from typing import Optional
+
+app = FastAPI()
+
+@app.get('/')
+def index():
+    return 'Hello World!'
+
+@app.get('/blog/{id}', status_code = status.HTTP_200_OK)
+def index(id:int, response:Response):
+    if id > 5:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": f"Blog with id {id} not found"}
+    else :
+        response.status_code = status.HTTP_200_OK
+        return {"message": f"Blog with id {id} was found"}
+
+class BlogType(str, Enum):
+    short='short'
+    story='story'
+    howto='howto'
+
+@app.get('/blog/type/{type}')
+def get_blogtype(type:BlogType):
+    return {"message": f"Blog type {type}"}    
+
+@app.get('/blog/all/')
+def get_blogs(page: int = 0,page_size: int = 10):
+    return {"message": f'All {page_size} blogs in page {page}'}
+
+@app.get('/blog/all2/')
+def get_blogs(page: int = 0,page_size:Optional [int] = None):
+    return {"message": f'All {page_size} blogs in page {page}'}
+
+@app.get('/blog/{id}/comments/{comment_id}')
+def get_comment(id:int, comment_id:int, valid:bool=True,username:Optional[str]=None):
+    return {"message": f'blog_id {id}, comment_id {comment_id}, valid {valid}, username {username}'}
