@@ -11,6 +11,17 @@ class PersonaSchema(BaseModel):
 
     class Config: 
         orm_mode = True 
+        
+class TrabajoSchema(BaseModel):
+    id: Optional[int]=None
+    nombre: Optional[str]=None
+    persona_id: Optional[int]=None
+
+    class Config: 
+        orm_mode = True 
+
+class RequestTrabajo(BaseModel): 
+    parameter: TrabajoSchema = Field(...) 
 
 class RequestPersona(BaseModel): 
     parameter: PersonaSchema = Field(...) 

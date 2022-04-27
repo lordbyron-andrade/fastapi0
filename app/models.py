@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String 
+from sqlalchemy import Column, Integer, String, ForeignKey
 from config import Base
 
 class Persona(Base):
@@ -8,4 +8,11 @@ class Persona(Base):
     nombre=Column(String)
     edad=Column(Integer)
 
+
+class Trabajo(Base):
+    __tablename__ = 'trabajo'
+
+    id=Column(Integer, primary_key=True)
+    nombre=Column(String)
+    persona_id = Column(Integer, ForeignKey('persona.id'))
 
