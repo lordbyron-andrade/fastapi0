@@ -3,6 +3,7 @@ from config import SessionLocal
 from sqlalchemy.orm import Session 
 from schemas import PersonaSchema, RequestPersona, Response, TrabajoSchema, RequestTrabajo
 import crud 
+from fastapi_jwt_auth import AuthJWT
 
 router = APIRouter() 
 
@@ -14,7 +15,8 @@ def get_db():
         db.close() 
 
 @router.post('/create')
-async def create(request:RequestPersona,db:Session=Depends(get_db)):
+async def create(request:RequestPersona,db:Session=Depends(get_db),Authorize: AuthJWT = Depends()):
+    Authorize.jwt_required()
     crud.crear_persona(db, request.parameter)
     return Response(code=200,status="Ok",message="Se creo la persona con exito").dict(exclude_none=True)
 

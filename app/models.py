@@ -16,3 +16,5 @@ class Trabajo(Base):
     nombre=Column(String)
     persona_id = Column(Integer, ForeignKey('persona.id'))
 
+
+

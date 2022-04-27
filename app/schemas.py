@@ -38,3 +38,4 @@ class User(BaseModel):
 
 class Settings(BaseModel):
     authjwt_secret_key: str = "EsteSeriaMiSecretoLJac197807051978"
+
