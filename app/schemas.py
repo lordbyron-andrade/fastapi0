@@ -32,3 +32,9 @@ class Response (GenericModel,Generic[T]):
     message: str
     result: Optional[T] 
 
+class User(BaseModel):
+    username: str
+    password: str
+
+class Settings(BaseModel):
+    authjwt_secret_key: str = "EsteSeriaMiSecretoLJac197807051978"
